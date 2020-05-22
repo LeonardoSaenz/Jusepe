@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary">⌘ JUSEPE ⌘</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+ 
+  <ion-searchbar class="ion-no-border" [(ngModel)]="searchTerm" (ionChange)="searchChanged()" ></ion-searchbar>
+ 
+  <ion-tab-bar class="ion-no-border">
+    <ion-tab-button (click)="tipo='';searchChanged(t=1);" >
+      <ion-icon name="layers" color="dark"></ion-icon>
+      <ion-label color="primary">Todo</ion-label>
+    </ion-tab-button>
+    <ion-tab-button (click)="tipo='movie';searchChanged(t=1);" >
+      <ion-icon name="videocam" color="dark" ></ion-icon>
+      <ion-label color="primary">Películas</ion-label>
+    </ion-tab-button>
+    <ion-tab-button (click)="tipo='series';searchChanged(t=1);" >
+      <ion-icon name="tv" color="dark" ></ion-icon>
+      <ion-label color="primary">Series</ion-label>
+    </ion-tab-button>
+    <ion-tab-button (click)="tipo='game';searchChanged(t=1);">
+      <ion-icon name="game-controller" color="dark"></ion-icon>
+      <ion-label color="primary">Juegos</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+
+  <ion-toolbar *ngIf="searchTerm != ''">
+    <ion-buttons slot="start">
+      <ion-button icon-only color="primary" (click)="prevPag();searchChanged()" *ngIf="pagina!=1">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="pagina!=1" class="ion-text-center" style="font-size: 17px;" color="dark">Página: {{pagina}}</ion-title>
+    <ion-title *ngIf="pagina==1" class="ion-text-center" style="font-size: 17px; margin-left: 40px;" color="dark">Página: {{pagina}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only color="primary" (click)="sigPag();searchChanged()">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+  <ion-list>
+    <ion-item button *ngFor="let item of results | async" [routerLink]="['/', 'movies', item.imdbID]">
+      <ion-avatar slot="start">
+        <img [src]="item.Poster" *ngIf="item.Poster != 'N/A'">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <h3 style="color:rgb(53, 53, 53);font-size: large;">{{ item.Title }}</h3>
+        <h4 style="color:rgb(62, 122, 250)">
+          {{ item.Year }}
+        </h4>
+      </ion-label>
+      <ion-icon slot="end" *ngIf="item.Type == 'movie'" name="videocam-outline"></ion-icon>
+      <ion-icon slot="end" *ngIf="item.Type == 'series'" name="tv-outline"></ion-icon>
+      <ion-icon slot="end" *ngIf="item.Type == 'game'" name="game-controller-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center" style="margin-right: 52px;color:rgb(0, 192, 250)" *ngIf="information?.imdbRating!='N/A'">
+      ★  {{ information?.imdbRating }}  ★
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content >
+ 
+  <ion-card *ngIf="information">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center" style="color:rgb(0, 174, 255)">
+        {{ information.Title }}
+      </ion-card-title>
+      <ion-card-subtitle color="dark" class="ion-text-center">
+        {{ information.Year }}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content ion-text-center>
+      <ion-card>
+
+          <ion-img [src]="information.Poster" class="ion-text-center" *ngIf="information.Poster != 'N/A'"></ion-img>
+
+      </ion-card>
+
+      <ion-item *ngIf="information.Plot != 'N/A'" class="ion-text-justify" style="margin-top:2%">
+        <ion-text color="dark" style="font-family: Century Gothic;margin-bottom: 5%;">
+          {{ information.Plot }}
+        </ion-text>
+      </ion-item>
+      
+      <ion-item *ngIf="information.Director != 'N/A'">
+        <ion-text color="dark" style="font-family: Century Gothic;margin-top: 5%;margin-bottom: 5%;" >
+          Directores: {{ information.Director }}
+        </ion-text>
+      </ion-item>
+
+      <ion-item *ngIf="information.Actors != 'N/A'">
+        <ion-text color="dark" style="font-family: Century Gothic;margin-top: 5%;margin-bottom: 5%;" >
+          Actores: {{ information.Actors }}
+        </ion-text>
+      </ion-item>
+
+      <ion-item *ngIf="information.Genre != 'N/A'">
+        <ion-text color="danger" style="font-family: Century Gothic;margin-top: 5%;margin-bottom: 5%;" >
+          Género: {{ information.Genre }}
+        </ion-text>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
